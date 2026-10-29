@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Your cart</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <a class="brand" href="{% url 'open_login' %}">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'open_login' %}">Restaurants</a>
+                <a href="{% url 'open_login' %}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Your order</p>
+                    <h1 class="page-title">Your cart</h1>
+                    <p class="page-subtitle">Hi {{ username }}, review your selected items before checkout.</p>
+                </div>
+            </div>
+
+            <div class="cart-layout">
+                <section class="table-wrap">
+                    <div class="table-scroll">
+                        <table class="data-table cart-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in itemList %}
+                                    <tr>
+                                        <td>
+                                            <div class="cart-item">
+                                                <img src="{{ item.picture }}" alt="{{ item.name }} image">
+                                                <strong>{{ item.name }}</strong>
+                                            </div>
+                                        </td>
+                                        <td class="cart-description">{{ item.description }}</td>
+                                        <td class="price">₹{{ item.price }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="empty-state">
+                                                <h2>Your cart is empty</h2>
+                                                <p>Add something delicious from one of our restaurants.</p>
+                                                <a class="btn btn-primary" href="{% url 'open_login' %}">Browse restaurants</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <aside class="order-summary">
+                    <p class="eyebrow">Summary</p>
+                    <h2>Ready to checkout?</h2>
+                    <div class="summary-row">
+                        <span>Total</span>
+                        <strong>₹{{ total_price }}</strong>
+                    </div>
+                    <form action="{% url 'checkout' username %}">
+                        <button class="btn btn-primary checkout-button" type="submit" {% if not itemList %}disabled{% endif %}>
+                            Checkout
+                        </button>
+                    </form>
+                    <a class="btn btn-secondary checkout-button" href="{% url 'open_login' %}">Continue browsing</a>
+                </aside>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

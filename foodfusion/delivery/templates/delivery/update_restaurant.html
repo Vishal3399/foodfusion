@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Update restaurant</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion Admin</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'open_show_restaurant' %}">Restaurants</a>
+                <a href="{% url 'open_add_restaurant' %}">Add listing</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="form-panel">
+                <div class="form-header">
+                    <h1>Update restaurant</h1>
+                    <p>Refresh the details for this listing.</p>
+                </div>
+
+                <form action="{% url 'update_restaurant' restaurant.id %}" method="post" class="form-grid">
+                    {% csrf_token %}
+
+                    <div class="field">
+                        <label for="name">Restaurant name</label>
+                        <input type="text" id="name" name="name" value="{{ restaurant.name }}" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="picture">Picture URL</label>
+                        <input type="text" id="picture" name="picture" value="{{ restaurant.picture }}" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="cuisine">Cuisine</label>
+                        <input type="text" id="cuisine" name="cuisine" value="{{ restaurant.cuisine }}" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="rating">Rating</label>
+                        <input type="number" id="rating" name="rating" min="0" max="5" step="0.5" value="{{ restaurant.rating }}" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <a href="{% url 'open_show_restaurant' %}" class="muted-link">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Discover meals</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'open_login' %}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Good evening</p>
+                    <h1 class="page-title">Welcome, {{ username }}!</h1>
+                    <p class="page-subtitle">Discover restaurants and dishes tailored for tonight.</p>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                {% for r in restaurantList %}
+                    <article class="restaurant-card">
+                        <img src="{{ r.picture }}" alt="{{ r.name }} restaurant image">
+                        <div class="restaurant-content">
+                            <div class="restaurant-topline">
+                                <h2 class="restaurant-name">{{ r.name }}</h2>
+                                <span class="rating-pill">★ {{ r.rating }}</span>
+                            </div>
+                            <p class="restaurant-meta">{{ r.cuisine }}</p>
+                            <div class="action-row">
+                                <a class="btn-link-primary" href="{% url 'view_menu' r.id username %}">View menu</a>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="feature-card" style="grid-column: 1 / -1;">
+                        <h3>No restaurants available yet</h3>
+                        <p>Check back soon for delicious new options.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

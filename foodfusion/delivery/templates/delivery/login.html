@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Login</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'open_signup' %}">Create account</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="form-panel">
+                <div class="form-header">
+                    <h1>Welcome back</h1>
+                    <p>Sign in to continue ordering your favorites.</p>
+                </div>
+
+                <form action="{% url 'login' %}" method="post" class="form-grid">
+                    {% csrf_token %}
+
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <a href="{% url 'open_signup' %}" class="muted-link">Need an account?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

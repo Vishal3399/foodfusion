@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | {{ restaurant.name }}</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'open_login' %}">Back</a>
+                
+<a href="{% url 'show_cart' username %}" >Go to cart</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Menu preview</p>
+                    <h1 class="page-title">{{ restaurant.name }}</h1>
+                    <p class="page-subtitle">{{ restaurant.cuisine }} • ★ {{ restaurant.rating }}</p>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                {% for item in itemList %}
+                    <article class="restaurant-card">
+                        <img src="{{ item.picture }}" alt="{{ item.name }} image">
+                        <div class="restaurant-content">
+                            <div class="restaurant-topline">
+                                <h2 class="restaurant-name">{{ item.name }}</h2>
+                                <span class="rating-pill">₹{{ item.price }}</span>
+                                
+                            </div>
+                            <p class="restaurant-meta">{{ item.description }}</p>
+                            <div class="action-row">
+                                {% if item.vegeterian %}
+                                    <span class="status-tag veg">Veg</span>
+                                {% else %}
+                                    <span class="status-tag nonveg">Non-Veg</span>
+                                {% endif %}
+                                 <a class="btn-link-primary"
+                                    href="{% url 'add_to_cart' item.id username %}">
+                                       Add to cart
+                                 </a>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="feature-card" style="grid-column: 1 / -1;">
+                        <h3>No items listed yet</h3>
+                        <p>Check back later for this restaurant’s menu.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

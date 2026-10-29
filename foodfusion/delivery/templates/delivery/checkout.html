@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Checkout</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <a class="brand" href="{% url 'open_login' %}">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'show_cart' username %}">Back to cart</a>
+                <a href="{% url 'open_login' %}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container checkout-shell">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Secure payment</p>
+                    <h1 class="page-title">Checkout</h1>
+                    <p class="page-subtitle">Welcome, {{ username }}. Complete your order securely.</p>
+                </div>
+            </div>
+
+            {% if error %}
+                <section class="feature-card checkout-message">
+                    <h2>{{ error }}</h2>
+                    <p>Add items to your cart before checking out.</p>
+                    <a class="btn btn-primary" href="{% url 'open_login' %}">Browse restaurants</a>
+                </section>
+            {% else %}
+                <div class="checkout-layout">
+                    <section class="table-wrap">
+                        <div class="table-scroll">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cart_items %}
+                                        <tr>
+                                            <td>{{ item.name }}</td>
+                                            <td class="price">₹{{ item.price }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <aside class="order-summary">
+                        <p class="eyebrow">Order total</p>
+                        <h2>Almost there!</h2>
+                        <div class="summary-row">
+                            <span>Total</span>
+                            <strong>₹{{ total_price }}</strong>
+                        </div>
+                        <button class="btn btn-primary checkout-button" id="rzp-button" type="button">Pay with Razorpay</button>
+                    </aside>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    {% if not error %}
+
+
+
+        <script>
+            var options = {
+                "key": "{{ razorpay_key_id }}",
+                "amount": "{{ amount|floatformat:2|add:'0.00'|floatformat:2 }}00",
+                "currency": "INR",
+                "name": "FoodFusion",
+                "description": "Order Payment",
+                "order_id": "{{ order_id }}",
+                "handler": function () {
+                    window.location.href = "{% url 'show_cart' username %}";
+                },
+                "prefill": {
+                    "name": "{{ JARVIS }}",
+                    "email": "customer@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#f97316"
+                }
+            };
+            var rzp = new Razorpay(options);
+
+            document.getElementById('rzp-button').addEventListener('click', function (event) {
+                rzp.open();
+                event.preventDefault();
+            });
+        </script>
+    {% endif %}
+</body>
+</html>

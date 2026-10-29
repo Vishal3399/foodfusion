@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion Admin</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'open_add_restaurant' %}">Add restaurant</a>
+                <a href="{% url 'open_show_restaurant' %}">View restaurants</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <p class="eyebrow">Admin dashboard</p>
+                    <h1 class="page-title">Welcome back, admin</h1>
+                    <p class="page-subtitle">Manage restaurants and menu items with ease.</p>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="metric-card">
+                    <h3>Restaurants</h3>
+                    <strong>{{ restaurant_count|default:'0' }}</strong>
+                </div>
+                <div class="metric-card">
+                    <h3>Active menu</h3>
+                    <strong>{{ item_count|default:'0' }}</strong>
+                </div>
+                <div class="metric-card">
+                    <h3>Avg. rating</h3>
+                    <strong>4.8</strong>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <article class="feature-card">
+                    <div class="info-badge">Quick action</div>
+                    <h3>Add a new restaurant</h3>
+                    <p>Launch a fresh dining option and keep your catalog up to date.</p>
+                    <div class="cta-row" style="margin-top: 18px; margin-bottom: 0;">
+                        <a class="btn btn-primary" href="{% url 'open_add_restaurant' %}">Add restaurant</a>
+                    </div>
+                </article>
+                <article class="feature-card">
+                    <div class="info-badge">Catalog</div>
+                    <h3>Manage existing venues</h3>
+                    <p>Review, update, delete, and refine restaurant details in one place.</p>
+                    <div class="cta-row" style="margin-top: 18px; margin-bottom: 0;">
+                        <a class="btn btn-secondary" href="{% url 'open_show_restaurant' %}">View restaurants</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

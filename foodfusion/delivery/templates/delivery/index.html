@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFusion | Discover Flavor</title>
+    <link rel="stylesheet" href="{% static 'delivery/css/styles.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container navbar">
+            <div class="brand">
+                <span class="brand-mark">F</span>
+                <span>FoodFusion</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{% url 'open_login' %}">Login</a>
+                <a href="{% url 'open_signup' %}">Create account</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container hero">
+        <section class="hero-grid">
+            <div>
+                <div class="eyebrow">Fresh • Fast • Flavorful</div>
+                <h1>Find your next favorite meal in minutes.</h1>
+                <p>Explore curated restaurants, discover chef-picked dishes, and enjoy the easiest way to order from the places you love.</p>
+
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="{% url 'open_signup' %}">Get started</a>
+                    <a class="btn btn-secondary" href="{% url 'open_login' %}">Browse restaurants</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <strong>120+</strong>
+                        <span>Local Eats</span>
+                    </div>
+                    <div class="stat">
+                        <strong>4.8/5</strong>
+                        <span>Average Rating</span>
+                    </div>
+                    <div class="stat">
+                        <strong>15 min</strong>
+                        <span>Average Delivery</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="feature-card large">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="restaurant interior">
+                    <h3>Tonight’s highlight</h3>
+                    <p>Smoky grilled bowls, hand-made pasta, and chef specials served fresh to your door.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why FoodFusion works</h2>
+                <p>Built for quick decisions and delicious results.</p>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="info-badge">01</div>
+                    <h3>Curated picks</h3>
+                    <p>Find top-rated spots and trending dishes that match your cravings.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="info-badge">02</div>
+                    <h3>Simple checkout</h3>
+                    <p>Order in a few taps with a smooth customer experience from start to finish.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="info-badge">03</div>
+                    <h3>Fast delivery</h3>
+                    <p>Track meal quality and speed without any extra hassle.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
